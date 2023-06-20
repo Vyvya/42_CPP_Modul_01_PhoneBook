@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   phonebook.hpp                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vg <vg@student.42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/07 22:38:31 by vgejno            #+#    #+#             */
-/*   Updated: 2023/06/19 23:37:42 by vg               ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef PHONEBOOK_HPP
 # define PHONEBOOK_HPP
@@ -16,8 +5,9 @@
 #include <iostream>
 #include <string>
 
-bool isNumeric(const std::string& str);
-bool isAlphabetic(const std::string& str);
+bool isNumeric( const std::string& str );
+bool isAlphabetic( const std::string& str );
+void resizeString( const std::string& str );
 
 class Contact
 {
