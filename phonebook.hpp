@@ -4,10 +4,12 @@
 
 #include <iostream>
 #include <string>
+#include <iomanip>
 
 bool isNumeric( const std::string& str );
 bool isAlphabetic( const std::string& str );
 void resizeString( const std::string& str );
+void printNumber( int num );
 
 class Contact
 {
@@ -32,6 +34,7 @@ class PhoneBook {
 
 	void addContact();
 	void displayAllContacts();
+	void displayOneContact( int index );
 
 	private:
 

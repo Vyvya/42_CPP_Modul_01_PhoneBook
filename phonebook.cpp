@@ -78,7 +78,7 @@ std::string PhoneBook::getInputNumber( const std::string& prompt ) {
 		if ( isNumeric( input )) {
 			return input;
 		} else {
-			std::cout << "Input should be a number." << std::endl;
+			std::cout << "Input should be a number" << std::endl;
 		}
 	}
 }
@@ -86,9 +86,12 @@ std::string PhoneBook::getInputNumber( const std::string& prompt ) {
 
 void PhoneBook::displayAllContacts() {
 
+	// PhoneBook::_currentContacts = 1;
+
 	for ( int i = 0; i < _currentContacts; i++ ) {
 
-		std::cout << ( _currentContacts + 1 )
+		printNumber( _currentContacts );
+		std::cout << "|";
 		resizeString( _contact[i].firstName );
 		std::cout << "|";
 		resizeString( _contact[i].lastName );
@@ -98,9 +101,36 @@ void PhoneBook::displayAllContacts() {
 		// resizeString( _contact[i].phoneNumber );
 		// std::cout << "|";
 		// resizeString( _contact[i].darkestSecret);
-		std::cout << "|" << std::endl;
+		std::cout << std::endl;
 
 	}
+}
+
+void PhoneBook::displayOneContact( int index ) {
+
+	int flag = false;
+
+	while ( false ) {
+		
+		if ( index >= 1 && index <= 8 ) {
+
+		std::cout << _contact[index].firstName << std::endl;
+		std::cout << _contact[index].lastName << std::endl;
+		std::cout << _contact[index].nickName << std::endl;
+		std::cout << _contact[index].phoneNumber << std::endl;
+		std::cout << _contact[index].darkestSecret << std::endl;
+
+		flag = true;
+
+		} else {
+
+			std::cout << "There are only 8 people in this town...";
+			std::cout << "Input should be a number between 0 and 8" << std::endl;
+
+		}
+	}
+	return;
+
 }
 
 Contact::Contact() {

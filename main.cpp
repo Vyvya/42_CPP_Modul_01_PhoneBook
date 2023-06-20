@@ -5,6 +5,14 @@
 numeric characters. It takes a const std::string& as input,
 which is a reference to a constant std::string object.*/
 
+void printNumber( int num ) {
+
+	std::string numberString = std::to_string( num );
+	std::cout << std::setw( 10 ) << numberString;
+
+	return;
+}
+
 void resizeString( const std::string& str ) {
 
 	std::string resizedString = str;
@@ -20,9 +28,9 @@ void resizeString( const std::string& str ) {
 
 	} else {
 
-		std::string resizedString = str;
-		resizedString.resize( 10, ' ' );
-		std::cout << resizedString;
+		// std::string resizedString = str;
+		// resizedString.resize( 10, ' ' );
+		std::cout << std::setw( 10 ) << str;
 	}
 
 	return;
@@ -33,9 +41,11 @@ bool isAlphabetic( const std::string& str ) {
 	for (std::string::size_type i = 0; i < str.size(); i++ ) {
 
 		if ( !std::isalpha( str[i] )) {
+
 			return false;
 		}
 	}
+
 	return true;
 }
 
@@ -47,6 +57,7 @@ bool isNumeric( const std::string& str ) {
 			return false;
 		}
 	}
+
 	return true;
 }
 
@@ -60,37 +71,46 @@ int	main()
 	while ( true  ) {
 
 		std::cout << std::endl;
-		std::cout << "PHONEBOOK" << std::endl;
-		std::cout << std::endl;
+		std::cout << "PHONEBOOK" << std::endl << std::endl;
+		// std::cout << std::endl;
 		std::cout << "Enter:" << std::endl;
 		std::cout << "ADD	-> to add a new contact" << std::endl;
 		std::cout << "SEARCH	-> to display saved contacts" << std::endl;
-		std::cout << "EXIT	-> to quit" << std::endl;
+		std::cout << "EXIT	-> to quit" << std::endl << std::endl;
 
 		std::cin >> input;
 
 		if ( input == "ADD" ) {
 
 			phoneBook.addContact();
-			std::cout << "Contact added" << std::endl;
+			std::cout << "Contact added" << std::endl << std::endl;
 		
 		} else if ( input == "SEARCH" ) {
 
+			std::cout << "Displaying all entries:" << std::endl;
 			phoneBook.displayAllContacts();
-			std::cout << "Select index: " << std::endl;
+			std::cout << std::endl;
+			std::cout << "Select entry index: " << std::endl;
 			std::cin >> index;
 
 			if (!isNumeric( index )) {
 
 				std::cout << "Input should be a number" << std::endl;
-				
+			
+			// } else if( atoi(index.c_str()) > 8 || atoi(index.c_str()) < 0) {
+
+				// std::cout << "There are only 8 people in this town...";
+				// std::cout << "Input should be a number between 0 and 8" << std::endl;
+
 			} else {
 				
-				phoneBook.displayAllContacts();
+				std::cout << "Displaying selected contact: " << index << std::endl;
+				phoneBook.displayOneContact( atoi(index.c_str()) );
 			}
 		
 		} else if ( input == "EXIT" ) {
 			
+			std::cout << "Phonebook deleted" << std::endl;
 			return 0;
 		
 		} else {
