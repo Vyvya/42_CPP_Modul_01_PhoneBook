@@ -34,7 +34,7 @@ class PhoneBook {
 
 	void addContact();
 	void displayAllContacts();
-	void displayOneContact( int index );
+	int displayOneContact( int index );
 
 	private:
 

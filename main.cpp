@@ -28,8 +28,6 @@ void resizeString( const std::string& str ) {
 
 	} else {
 
-		// std::string resizedString = str;
-		// resizedString.resize( 10, ' ' );
 		std::cout << std::setw( 10 ) << str;
 	}
 
@@ -65,14 +63,12 @@ int	main()
 {
 	PhoneBook	phoneBook;
 	std::string	input;
-	std::string index;
 
+	std::cout << std::endl;
+	std::cout << "PHONEBOOK" << std::endl << std::endl;
 
 	while ( true  ) {
 
-		std::cout << std::endl;
-		std::cout << "PHONEBOOK" << std::endl << std::endl;
-		// std::cout << std::endl;
 		std::cout << "Enter:" << std::endl;
 		std::cout << "ADD	-> to add a new contact" << std::endl;
 		std::cout << "SEARCH	-> to display saved contacts" << std::endl;
@@ -87,26 +83,8 @@ int	main()
 		
 		} else if ( input == "SEARCH" ) {
 
-			std::cout << "Displaying all entries:" << std::endl;
+			std::cout << "Displaying all entries:" << std::endl << std::endl;
 			phoneBook.displayAllContacts();
-			std::cout << std::endl;
-			std::cout << "Select entry index: " << std::endl;
-			std::cin >> index;
-
-			if (!isNumeric( index )) {
-
-				std::cout << "Input should be a number" << std::endl;
-			
-			// } else if( atoi(index.c_str()) > 8 || atoi(index.c_str()) < 0) {
-
-				// std::cout << "There are only 8 people in this town...";
-				// std::cout << "Input should be a number between 0 and 8" << std::endl;
-
-			} else {
-				
-				std::cout << "Displaying selected contact: " << index << std::endl;
-				phoneBook.displayOneContact( atoi(index.c_str()) );
-			}
 		
 		} else if ( input == "EXIT" ) {
 			
@@ -115,7 +93,7 @@ int	main()
 		
 		} else {
 			
-			std::cout << "Invalid command. Please retry" << std::endl;
+			std::cout << "Invalid command. Please retry" << std::endl << std::endl;
 		} 
 
 	}

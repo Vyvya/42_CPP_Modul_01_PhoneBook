@@ -5,50 +5,41 @@ PhoneBook::PhoneBook( void ) {
 
 	std::cout << "PhoneBook Constructor called" << std::endl;
 	_currentContacts = 0;
-	// return;
 }
 
 PhoneBook::~PhoneBook( void ) {
 
 	std::cout << "PhoneBook Destructor called" << std::endl;
-	// return;
 }
 
+//implementation 
 void PhoneBook::addContact() {
-	//implementation
-
-	std::string input;
-
-	if (_currentContacts >= 8) {
-
-		_contact[0] = _contact[7];
-		_currentContacts = 8;
 	
-	} else {
-			
-		Contact newContact;
+	std::string input;
+	Contact newContact;
 
-		// std::cout << "Enter First Name: ";
-		newContact.firstName = getInputString( "Enter First Name: " );
-		
-		// std::cout << "Enter Last Name: ";
-		newContact.lastName = getInputString( "Enter Last Name: " );
-		
-		// std::cout << "Enter Nickname: ";
-		newContact.nickName = getInputString( "Enter Nickname: " );
+	newContact.firstName = getInputString( "Enter First Name: " );
+	newContact.lastName = getInputString( "Enter Last Name: " );
+	newContact.nickName = getInputString( "Enter Nickname: " );
+	newContact.phoneNumber = getInputNumber( "Enter Phone Number: " );
 
-		// std::cout << "Enter Phone Number: ";
-		newContact.phoneNumber = getInputNumber( "Enter Phone Number: " );
-		
-		// std::cout << "Enter Your Darkest Secret: " << std::endl;
-		newContact.darkestSecret = getInputString( "Enter Your Darkest Secret: " );
-		
+	std::cout << "Enter Your Darkest Secret: ";
+	std::getline( std::cin >> std::ws, newContact.darkestSecret);
+
+	if( _currentContacts < 8) {
+
 		_contact[_currentContacts] = newContact;
 		_currentContacts++;
 
-		std::cout << "Contact entry success" << std::endl;
+	} else {
 
+		int oldestContact = ( _currentContacts % 8 );
+		_contact[oldestContact] = newContact;
+		_currentContacts++;
 	}
+
+	std::cout << "Contact entry success" << std::endl;
+	return;
 }
 
 std::string PhoneBook::getInputString( const std::string& prompt ) {
@@ -69,6 +60,7 @@ std::string PhoneBook::getInputString( const std::string& prompt ) {
 }
 
 std::string PhoneBook::getInputNumber( const std::string& prompt ) {
+	
 	std::string input;
 
 	while ( true ) {
@@ -86,61 +78,130 @@ std::string PhoneBook::getInputNumber( const std::string& prompt ) {
 
 void PhoneBook::displayAllContacts() {
 
-	// PhoneBook::_currentContacts = 1;
+	std::string index;
 
-	for ( int i = 0; i < _currentContacts; i++ ) {
+	std::cout << std::setw( 10 ) << "Index" << "|";
+	std::cout << std::setw( 10 ) << "First Name" << "|";
+	std::cout << std::setw( 10 ) << "Last Name" << "|";
+	std::cout << std::setw( 10 ) << "Nickname" << "|" << std::endl;
 
-		printNumber( _currentContacts );
-		std::cout << "|";
-		resizeString( _contact[i].firstName );
-		std::cout << "|";
-		resizeString( _contact[i].lastName );
-		std::cout << "|";
-		resizeString( _contact[i].nickName );
-		// std::cout << "|";
-		// resizeString( _contact[i].phoneNumber );
-		// std::cout << "|";
-		// resizeString( _contact[i].darkestSecret);
-		std::cout << std::endl;
+	if ( _currentContacts == 0 ) {
 
-	}
-}
+		for (int i = 0; i < 4; i++ ) {
 
-void PhoneBook::displayOneContact( int index ) {
+			printNumber( _currentContacts);
+			std::cout << "|";
 
-	int flag = false;
+		}
 
-	while ( false ) {
-		
-		if ( index >= 1 && index <= 8 ) {
+		std::cout  << std::endl << std::endl;
+		return;
 
-		std::cout << _contact[index].firstName << std::endl;
-		std::cout << _contact[index].lastName << std::endl;
-		std::cout << _contact[index].nickName << std::endl;
-		std::cout << _contact[index].phoneNumber << std::endl;
-		std::cout << _contact[index].darkestSecret << std::endl;
+	} else {
 
-		flag = true;
+		if ( _currentContacts <= 8) {
+
+			for ( int i = 1; i <= _currentContacts; i++ ) {
+
+				printNumber( i );
+				std::cout << "|";
+				resizeString( _contact[i - 1].firstName );
+				std::cout << "|";
+				resizeString( _contact[i - 1].lastName );
+				std::cout << "|";
+				resizeString( _contact[i - 1].nickName );
+				std::cout << "|" << std::endl;
+			}
 
 		} else {
 
-			std::cout << "There are only 8 people in this town...";
-			std::cout << "Input should be a number between 0 and 8" << std::endl;
+			for ( int i = 1; i <= 8 ; i++ ) {
 
+				printNumber( i );
+				std::cout << "|";
+				resizeString( _contact[i - 1].firstName );
+				std::cout << "|";
+				resizeString( _contact[i - 1].lastName );
+				std::cout << "|";
+				resizeString( _contact[i - 1].nickName );
+				std::cout << "|" << std::endl;
+			}
 		}
-	}
-	return;
 
+		std::cout << std::endl;
+
+	}
+
+	int flag = false;
+
+	while( !flag ) {
+
+			std::cout << "Select entry index: " << std::endl;
+			std::cin >> index;
+
+			if (!isNumeric( index )) {
+
+				std::cout << "Input should be a number" << std::endl;
+				flag = false;
+
+			} else {
+				
+				int numIndex = atoi(index.c_str());
+				if ( displayOneContact( numIndex ) ) {
+
+					flag = false;
+
+				} else {
+
+					flag = true;
+
+				}
+			}
+	}
+	return;	
+}
+
+int PhoneBook::displayOneContact( int index ) {
+
+	int flag = false;
+
+	while ( !flag ) {
+		
+		if( index >= 1 && index <= 8 && index <= _currentContacts ) {
+
+			std::cout << "Displaying selected contact: " << index << std::endl << std::endl;
+			std::cout << "First Name: " << _contact[index - 1].firstName << std::endl;
+			std::cout << "Last Name: " << _contact[index - 1].lastName << std::endl;
+			std::cout << "Nickname: " << _contact[index - 1].nickName << std::endl;
+			std::cout << "Phone Number: " << _contact[index - 1].phoneNumber << std::endl;
+			std::cout << "Darkest Secret: " << _contact[index - 1].darkestSecret << std::endl << std::endl;
+
+			flag = true;
+
+		} else if( index > _currentContacts ) {
+
+			std::cout << "There are currently: " << _currentContacts << " entires in the PhoneBook" << std::endl << std::endl;
+			return 1;
+
+		} else {
+
+			std::cout << "Input should be a number between 1 and 8" << std::endl << std::endl;
+			return 1;
+
+		}	
+
+	}
+	return 0;
 }
 
 Contact::Contact() {
 
-	std::cout << "Contact constructor called: " << std::endl;
+	// std::cout << "Contact constructor called: " << std::endl;
 
 }
 
 Contact::~Contact() {
 
-	std::cout << "Contact Destructor called: " << std::endl;
+	// std::cout << "Contact Destructor called: " << std::endl;
 
 }
