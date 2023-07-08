@@ -139,6 +139,13 @@ void PhoneBook::displayAllContacts() {
 			std::cout << "Select entry index: " << std::endl;
 			std::cin >> index;
 
+			if (std::cin.eof()) {
+				
+				std::cin.clear();
+				clearerr(stdin);
+				break;
+			}
+
 			if (!isNumeric( index )) {
 
 				std::cout << "Input should be a number" << std::endl;
@@ -189,7 +196,6 @@ int PhoneBook::displayOneContact( int index ) {
 			return 1;
 
 		}	
-
 	}
 	return 0;
 }

@@ -76,15 +76,25 @@ int	main()
 
 		std::cin >> input;
 
+		if (std::cin.eof()) {
+				
+				std::cin.clear();
+				clearerr(stdin);
+				continue;
+
+		} 
+
 		if ( input == "ADD" ) {
 
 			phoneBook.addContact();
 			std::cout << "Contact added" << std::endl << std::endl;
+			
 		
 		} else if ( input == "SEARCH" ) {
 
 			std::cout << "Displaying all entries:" << std::endl << std::endl;
 			phoneBook.displayAllContacts();
+
 		
 		} else if ( input == "EXIT" ) {
 			
@@ -94,8 +104,7 @@ int	main()
 		} else {
 			
 			std::cout << "Invalid command. Please retry" << std::endl << std::endl;
-		} 
-
+		}	
 	}
 	return 0;
 }
